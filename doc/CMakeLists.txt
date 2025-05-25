@@ -38,6 +38,18 @@ if(NOT BASH_COMPLETION_PATH)
       ERROR_QUIET
       OUTPUT_STRIP_TRAILING_WHITESPACE)
   endif()
+
+  # ————————————————————————————————————————————————————
+  # If the user explicitly set CMAKE_INSTALL_PREFIX on the command line,
+  # force completions under that prefix/share/bash-completion/completions
+  if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(BASH_COMPLETION_PATH
+      "${CMAKE_INSTALL_PREFIX}/share/bash-completion/completions"
+        CACHE PATH
+        "Location to install bash completions (forced under PREFIX)" )
+    message(STATUS "Overriding Bash completion path to ${BASH_COMPLETION_PATH}")
+  endif()
+  # ————————————————————————————————————————————————————
 endif()
 
 if(BASH_COMPLETION_PATH)
